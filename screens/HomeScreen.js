@@ -18,14 +18,10 @@ const HomeScreen = (props) => {
         <View style={styles.buttonContainer}>
           <Button
             title="Income"
-            color={Colors.lightFadeBlue}
+            color={Colors.darkGreen}
             onPress={props.incomeClick}
           />
-          <Button
-            title="Spent"
-            color={Colors.darkFadeBlue}
-            onPress={props.spentClick}
-          />
+          <Button title="Spent" color="red" onPress={props.spentClick} />
         </View>
       </View>
       <FlatList

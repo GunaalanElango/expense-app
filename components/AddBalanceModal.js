@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Modal, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Modal,
+  TextInput,
+  Button,
+  Alert,
+} from "react-native";
 import Styles from "../constant/styles";
 
 import Colors from "../constant/color";
@@ -8,8 +15,20 @@ const AddBalanceModal = (props) => {
   const [enteredBalance, setEnteredBalance] = useState("");
 
   const onPressHandler = () => {
+    if (isNaN(enteredBalance)) {
+      Alert.alert(
+        "Invalid Amount Entered",
+        "Amount Should be in numbers only",
+        [{ text: "Okay", style: "destructive" }]
+      );
+      return;
+    }
     props.addBalance(enteredBalance);
     setEnteredBalance("");
+  };
+
+  const onChangeTextHandler = (enteredNumber) => {
+    setEnteredBalance(enteredNumber);
   };
 
   return (
@@ -21,7 +40,7 @@ const AddBalanceModal = (props) => {
             placeholder="Add Initial Balance"
             keyboardType="numeric"
             value={enteredBalance}
-            onChangeText={setEnteredBalance}
+            onChangeText={onChangeTextHandler}
             autoFocus={true}
             autoCompleteType="off"
           />

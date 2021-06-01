@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Modal, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Modal,
+  TextInput,
+  Button,
+  Alert,
+} from "react-native";
 import Styles from "../constant/styles";
 
 import Colors from "../constant/color";
@@ -9,10 +16,28 @@ const OperationModal = (props) => {
   const [description, setDescription] = useState("");
 
   const onSubmitHandler = () => {
-    let result = {},
-      balance = parseInt(props.balance),
+    let balance = parseInt(props.balance),
       enteredAmt = parseInt(amount),
       resultValue = 0;
+
+    if (amount == "") {
+      Alert.alert("Empty Error", "Enter the Amount", [{ text: "Okay" }]);
+      return;
+    }
+
+    if (enteredAmt > balance && props.operation == "-") {
+      Alert.alert(
+        "Invalid Amount",
+        "Entered Amount should be less than balance",
+        [
+          {
+            text: "Okay",
+          },
+        ]
+      );
+      return;
+    }
+
     switch (props.operation) {
       case "+":
         resultValue = balance + enteredAmt;
@@ -21,6 +46,7 @@ const OperationModal = (props) => {
         resultValue = balance - enteredAmt;
         break;
     }
+
     props.onSubmit({
       operation: props.operation,
       resultValue,
