@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Button, Text } from "react-native";
+import * as Application from "expo-application";
+import * as Location from "expo-location";
 
 import Header from "./components/Header";
 import Colors from "./constant/color";
@@ -14,6 +16,19 @@ export default function App() {
   const [showIncomeModal, setShowIncomeModal] = useState(false);
   const [showSpentModal, setShowSpentModal] = useState(false);
   const [expenseList, setExpenseList] = useState([]);
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
 
   const onAddInitBalanceHandler = () => {
     setShowAddBalanceModal(true);
@@ -89,6 +104,16 @@ export default function App() {
     />
   ) : null;
 
+  let locationContent = null;
+  if (location) {
+    locationContent = (
+      <View>
+        <Text>Latitude : {location.coords.latitude}</Text>
+        <Text>Longitude : {location.coords.longitude}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <StatusBar backgroundColor={Colors.white} />
@@ -96,6 +121,10 @@ export default function App() {
       {startScreen}
       {incomeModal}
       {spentModal}
+      <View>
+        <Text>Unique id: {Application.androidId}</Text>
+        {locationContent}
+      </View>
     </View>
   );
 }
