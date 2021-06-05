@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList, Alert } from "react-native";
+import { StyleSheet, View, Text, Alert } from "react-native";
 
 import ExpenseItem from "../components/ExpenseItem";
 import BalanceCard from "../components/BalanceCard";
@@ -16,19 +16,22 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     selectLog()
-      .then((result) => setExpenseList([...result.rows._array]))
+      .then((result) => {
+        setExpenseList([...result.rows._array]);
+      })
       .catch((error) => console.log(error));
-  }, []);
+  }, [balance]);
 
   const onSubmitHandler = (value, operation) => {
     const enteredValue = parseInt(value);
 
     if (operation == "+") {
       insertLog(enteredValue, operation, balance + enteredValue, balance)
-        .then((result) => console.log(result))
+        .then((result) => {
+          console.log(result.rows._array);
+          setBalance((currentValue) => currentValue + enteredValue);
+        })
         .catch((error) => console.log(error));
-
-      setBalance((currentValue) => currentValue + enteredValue);
     } else {
       if (balance >= value) {
         setBalance((currentValue) => currentValue - enteredValue);
@@ -95,19 +98,16 @@ const HomeScreen = (props) => {
   ) : null;
 
   let expensesList =
-    expenseList.length != 0 ? (
-      expenseList.map((expense) => (
-        <ExpenseItem
-          key={expense.id}
-          operation={expense.operation}
-          currentBalance={expense.current_balance}
-          amount={expense.amount}
-          previousBalance={expense.previous_balance}
-        />
-      ))
-    ) : (
-      <Text>Empty Lists</Text>
-    );
+    expenseList.length != 0 &&
+    expenseList.map((expense) => (
+      <ExpenseItem
+        key={expense.id}
+        operation={expense.operation}
+        currentBalance={expense.current_balance}
+        amount={expense.amount}
+        previousBalance={expense.previous_balance}
+      />
+    ));
 
   return (
     <View style={styles.screen}>

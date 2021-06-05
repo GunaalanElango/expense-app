@@ -7,9 +7,15 @@ import * as Location from "expo-location";
 import Header from "./components/Header";
 import Colors from "./constant/color";
 import HomeScreen from "./screens/HomeScreen";
-import { initUser } from "./helper/db";
+import { initLogTable } from "./helper/db";
 
 export default function App() {
+  useEffect(() => {
+    initLogTable
+      .then(() => console.log("database initialized.."))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <View style={styles.screen}>
       <StatusBar backgroundColor={Colors.white} />

@@ -4,7 +4,7 @@ import Colors from "../constant/color";
 
 const ExpenseItem = (props) => {
   return (
-    <View style={styles.listContainer} key={props.key}>
+    <View>
       <Text>
         {props.previousBalance} {props.operation} {props.amount} ={" "}
         {props.currentBalance}
@@ -14,9 +14,9 @@ const ExpenseItem = (props) => {
 };
 
 const styles = StyleSheet.create({
-  listContainer: {
-    flex: 1,
-  },
+  // listContainer: {
+  //   flex: 1,
+  // },
   // listContainer: {
   //   width: "100%",
   //   alignItems: "center",
