@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Alert } from "react-native";
+import { StyleSheet, View, Alert, ScrollView } from "react-native";
 
 import ExpenseItem from "../components/ExpenseItem";
 import BalanceCard from "../components/BalanceCard";
 import Header from "../components/Header";
 import OperationBalanceCard from "../components/OperationBalanceCard";
-import { insertLog, selectLog } from "../helper/db";
+import { Balance, Log } from "../helper/db";
 
 const HomeScreen = (props) => {
   const [balance, setBalance] = useState(0);
@@ -15,36 +15,58 @@ const HomeScreen = (props) => {
   const [expenseList, setExpenseList] = useState([]);
 
   useEffect(() => {
-    selectLog()
+    Balance.selectBalance(props.androidID)
       .then((result) => {
-        setExpenseList([...result.rows._array]);
+        if (result.rows._array.length != 0) {
+          setBalance(result.rows._array[0].balance);
+        } else {
+          setBalance(0);
+        }
       })
       .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    Log.selectLog()
+      .then((result) => {
+        if (result.rows._array.length != 0) {
+          setExpenseList([...result.rows._array]);
+        } else {
+          setExpenseList([]);
+        }
+      })
+      .catch((error) => console.error(error));
   }, [balance]);
 
   const onSubmitHandler = (value, operation) => {
     const enteredValue = parseInt(value);
 
     if (operation == "+") {
-      insertLog(enteredValue, operation, balance + enteredValue, balance)
-        .then((result) => {
-          console.log(result.rows._array);
-          setBalance((currentValue) => currentValue + enteredValue);
-        })
-        .catch((error) => console.log(error));
+      setBalance((currentValue) => currentValue + enteredValue);
+
+      Balance.insertBalance(balance + enteredValue, props.androidID)
+        .then((result) => console.log("[ADD BALANCE RESULT]", result))
+        .catch((error) => console.error(error));
+
+      Log.insertLog(enteredValue, operation, balance + enteredValue, balance)
+        .then((result) => console.log("[LOG ADD INSERT RESULT]" + result))
+        .catch((error) => console.error(error));
     } else {
-      if (balance >= value) {
+      if (balance >= enteredValue) {
         setBalance((currentValue) => currentValue - enteredValue);
+
+        Balance.insertBalance(balance - enteredValue, props.androidID)
+          .then((result) => console.log("[SUBTRACT BALANCE RESULT]", result))
+          .catch((error) => console.error(error));
+
+        Log.insertLog(enteredValue, operation, balance - enteredValue, balance)
+          .then((result) => console.log("[LOG SUB INSERT RESULT]" + result))
+          .catch((error) => console.error(error));
       } else {
         Alert.alert(
           "Insufficient Balance",
           "Amount should be lesser than Balance",
-          [
-            {
-              text: "Okay",
-              style: "destructive",
-            },
-          ]
+          [{ text: "Okay", style: "destructive" }]
         );
         return;
       }

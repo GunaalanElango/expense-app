@@ -1,25 +1,50 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Button, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import * as Application from "expo-application";
+import * as SplashScreen from "expo-splash-screen";
 import * as Location from "expo-location";
 
-import Header from "./components/Header";
 import Colors from "./constant/color";
 import HomeScreen from "./screens/HomeScreen";
-import { initLogTable } from "./helper/db";
+import { Balance, Log } from "./helper/db";
 
 export default function App() {
+  const [isAppReady, setIsAppReady] = useState(false);
+
   useEffect(() => {
-    initLogTable
-      .then(() => console.log("database initialized.."))
-      .catch((error) => console.log(error));
+    (async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+
+        await Balance.createBalanceTable();
+        await Log.createLogTable();
+
+        console.log("DATABASE INITIALIZED");
+      } catch (error) {
+        console.error("[INITIALIZE TABLE ERROR]", error);
+      } finally {
+        setIsAppReady(true);
+      }
+    })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (isAppReady) {
+        await SplashScreen.hideAsync();
+      }
+    })();
+  }, [isAppReady]);
+
+  if (!isAppReady) {
+    return null;
+  }
 
   return (
     <View style={styles.screen}>
       <StatusBar backgroundColor={Colors.white} />
-      <HomeScreen />
+      <HomeScreen androidID={Application.androidId} />
     </View>
   );
 }
