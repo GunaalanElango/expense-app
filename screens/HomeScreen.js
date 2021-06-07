@@ -137,7 +137,9 @@ const HomeScreen = (props) => {
       {balanceCard}
       {addBalanceCard}
       {subBalanceCard}
-      {expensesList}
+      <View style={styles.listContainer}>
+        <ScrollView style={styles.list}>{expensesList}</ScrollView>
+      </View>
     </View>
   );
 };
@@ -146,6 +148,13 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
+  },
+  listContainer: {
+    flex: 1,
+    width: "90%",
+  },
+  list: {
+    width: "100%",
   },
 });
 

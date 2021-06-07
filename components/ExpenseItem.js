@@ -9,7 +9,7 @@ const ExpenseItem = (props) => {
       <Text style={{ color: "green" }}>
         Previous Balance {props.previousBalance}
       </Text>
-      <Text style={{ color: "green" }}>result {props.currentBalance}</Text>
+      <Text style={{ color: "green" }}>Balance {props.currentBalance}</Text>
     </View>
   ) : (
     <View style={styles.sub}>
@@ -17,14 +17,13 @@ const ExpenseItem = (props) => {
       <Text style={{ color: "red" }}>
         Previous Balance {props.previousBalance}
       </Text>
-      <Text style={{ color: "red" }}>result {props.currentBalance}</Text>
+      <Text style={{ color: "red" }}>Balance {props.currentBalance}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   add: {
-    width: "90%",
     paddingVertical: 10,
     marginVertical: 5,
     borderWidth: 1,
@@ -34,7 +33,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   sub: {
-    width: "90%",
     paddingVertical: 10,
     marginVertical: 5,
     borderWidth: 1,

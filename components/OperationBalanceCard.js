@@ -7,7 +7,7 @@ const OperationBalanceCard = (props) => {
   const [enteredValue, setEnteredValue] = useState("");
 
   const onChangeTextHandler = (enteredNumber) => {
-    if (isNaN(enteredNumber) || enteredNumber == ' ') {
+    if (isNaN(enteredNumber)) {
       return;
     }
     setEnteredValue(enteredNumber);
