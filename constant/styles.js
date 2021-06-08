@@ -6,12 +6,14 @@ const styles = StyleSheet.create({
     width: "80%",
     marginVertical: 10,
     paddingVertical: 8,
-    backgroundColor: Colors.lightGrey,
+    backgroundColor: Colors.violet,
     paddingLeft: 10,
-    borderRadius: 8,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Colors.darkViolet,
   },
   input: {
-    color: Colors.darkFadeBlue,
+    color: Colors.darkViolet,
     fontSize: 18,
   },
 });

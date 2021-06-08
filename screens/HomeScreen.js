@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
-
+import { useSelector } from "react-redux";
 import BalanceCard from "../components/BalanceCard";
+import Colors from "../constant/color";
 
 const HomeScreen = (props) => {
-  const [balance, setBalance] = useState(0);
-  // const [expenseList, setExpenseList] = useState([]);
+  const balance = useSelector((state) => state.balance);
 
   return (
     <View style={styles.screen}>

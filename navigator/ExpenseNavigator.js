@@ -26,20 +26,25 @@ const LogStackNavigator = createStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <HomeStackNavigator.Navigator screenOptions={defaultStackScreenOptions}>
+    <HomeStackNavigator.Navigator
+      screenOptions={defaultStackScreenOptions}
+      mode="modal"
+    >
       <HomeStackNavigator.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          headerTitle: "Expenses",
+          title: "ExpenseApp",
         }}
       />
       <HomeStackNavigator.Screen
         name="OperationScreen"
         component={OperationScreen}
-        options={({ route }) => ({
+        options={(props) => ({
           title:
-            route.params.operation == "-" ? "Subtract Amount" : "Add Amount",
+            props.route.params.operation == "+"
+              ? "Add Balance"
+              : "Subtract Balance",
         })}
       />
     </HomeStackNavigator.Navigator>

@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
     backgroundColor: Colors.darkViolet,
-    borderRadius: 10,
+    borderRadius: 5,
   },
   buttonText: {
     color: Colors.white,
