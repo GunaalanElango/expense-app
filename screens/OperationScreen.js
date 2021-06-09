@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import * as Location from "expo-location";
 
-import { addBalance, subtractBalance } from "../store/actions/expense";
+import { addBalanceLog, subBalanceLog } from "../store/actions/expense";
 import Colors from "../constant/color";
 import Styles from "../constant/styles";
 import MainButton from "../components/MainButton";
@@ -10,8 +11,22 @@ import MainButton from "../components/MainButton";
 const OperationBalanceScreen = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
-
+  const currentBalance = useSelector((state) => state.balance);
+  let location = null;
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getLatAndLong = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+
+      let locationObj = await Location.getCurrentPositionAsync();
+      location = locationObj;
+    };
+    getLatAndLong();
+  });
 
   const onChangeAmountHandler = (enteredNumber) => {
     if (isNaN(enteredNumber) || enteredNumber == " ") {
@@ -25,12 +40,31 @@ const OperationBalanceScreen = (props) => {
   };
 
   const onSubmitHandler = () => {
+    let enteredAmountArray = enteredAmount.split("");
+    if (enteredAmountArray.includes(" ") || enteredAmountArray.includes(".")) {
+      Alert.alert("Invalid", "Numbers with decimal points are not allowed", [
+        { text: "Okay", style: "destructive" },
+      ]);
+      return;
+    }
     const enteredNumber = parseInt(enteredAmount);
 
+    const curDate = new Date();
+    let log = {
+      amountEntered: enteredNumber,
+      operation: props.route.params.operation,
+      currentBalance: currentBalance,
+      dateTime: curDate.toString(),
+      latitude: location ? location.coords.latitude : null,
+      longitude: location ? location.coords.longitude : null,
+    };
+
     if (props.route.params.operation == "+") {
-      dispatch(addBalance(enteredNumber));
+      log.newBalance = +currentBalance + enteredNumber;
+      dispatch(addBalanceLog(log));
     } else {
-      dispatch(subtractBalance(enteredNumber));
+      log.newBalance = +currentBalance - enteredNumber;
+      dispatch(subBalanceLog(log));
     }
 
     props.navigation.navigate("HomeScreen");

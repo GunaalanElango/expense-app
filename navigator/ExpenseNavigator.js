@@ -2,14 +2,12 @@ import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../constant/color";
 import HomeScreen from "../screens/HomeScreen";
 import OperationScreen from "../screens/OperationScreen";
 import LogScreen from "../screens/LogScreen";
-// import OnboardingScreen from "../screens/OnboardingScreen";
 
 const defaultStackScreenOptions = {
   headerStyle: {
@@ -22,16 +20,12 @@ const defaultStackScreenOptions = {
   },
 };
 
-const OnboardingStackNavigator = createStackNavigator();
 const HomeStackNavigator = createStackNavigator();
 const LogStackNavigator = createStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <HomeStackNavigator.Navigator
-      screenOptions={defaultStackScreenOptions}
-      mode="modal"
-    >
+    <HomeStackNavigator.Navigator screenOptions={defaultStackScreenOptions}>
       <HomeStackNavigator.Screen
         name="HomeScreen"
         component={HomeScreen}
@@ -104,16 +98,5 @@ const MainNavigator = () => {
     </ExpenseTabNavigator.Navigator>
   );
 };
-
-// export const OnboardingNavigator = () => {
-//   return (
-//     <OnboardingStackNavigator.Navigator headerMode="none">
-//       <OnboardingStackNavigator.Screen
-//         name="OnboardingScreen"
-//         component={OnboardingScreen}
-//       />
-//     </OnboardingStackNavigator.Navigator>
-//   );
-// };
 
 export default MainNavigator;

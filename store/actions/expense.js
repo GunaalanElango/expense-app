@@ -1,10 +1,10 @@
-export const ADD_BALANCE = "ADD_BALANCE";
-export const SUBTRACT_BALANCE = "SUBTRACT_BALANCE";
+export const ADD_BALANCE_LOG = "ADD_BALANCE_LOG";
+export const SUB_BALANCE_LOG = "SUB_BALANCE_LOG";
 
-export const addBalance = (enteredBalance) => {
-  return { type: ADD_BALANCE, enteredBalance };
+export const addBalanceLog = (log) => {
+  return { type: ADD_BALANCE_LOG, log };
 };
 
-export const subtractBalance = (enteredBalance) => {
-  return { type: SUBTRACT_BALANCE, enteredBalance };
+export const subBalanceLog = (log) => {
+  return { type: SUB_BALANCE_LOG, log };
 };

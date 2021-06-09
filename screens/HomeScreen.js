@@ -6,6 +6,7 @@ import Colors from "../constant/color";
 
 const HomeScreen = (props) => {
   const balance = useSelector((state) => state.balance);
+  const expenseLogs = useSelector((state) => state.expenseLogList);
 
   return (
     <View style={styles.screen}>
