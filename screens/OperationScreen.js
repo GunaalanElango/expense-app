@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as Location from "expo-location";
+import * as Application from "expo-application";
 
 import { addBalanceLog, subBalanceLog } from "../store/actions/expense";
 import Colors from "../constant/color";
@@ -57,6 +58,7 @@ const OperationBalanceScreen = (props) => {
       dateTime: curDate.toString(),
       latitude: location ? location.coords.latitude : null,
       longitude: location ? location.coords.longitude : null,
+      deviceId: Application.androidId
     };
 
     if (props.route.params.operation == "+") {

@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
-import * as Application from "expo-application";
-import * as SplashScreen from "expo-splash-screen";
-import * as Location from "expo-location";
+import React from "react";
 import { enableScreens } from "react-native-screens";
 
-import AppNavigator from "./navigator/AppNavigator";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import expenseReducer from "./store/reducers/expense";
+import thunk from "redux-thunk";
 
-const store = createStore(expenseReducer);
+import AppNavigator from "./navigation/AppNavigator";
+import expenseReducer from "./store/reducers/expense";
+import { createBalanceTable, createLogTable } from "./database/db";
+
+createBalanceTable()
+  .then((result) => console.log("Balance table initialized..."))
+  .catch((error) => console.log(error));
+
+createLogTable()
+  .then((result) => console.log("Log table initialized..."))
+  .catch((error) => console.log(error));
+
+const store = createStore(expenseReducer, applyMiddleware(thunk));
 
 enableScreens();
 

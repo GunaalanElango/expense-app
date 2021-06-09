@@ -1,4 +1,8 @@
-import { ADD_BALANCE_LOG, SUB_BALANCE_LOG } from "../actions/expense";
+import {
+  ADD_BALANCE_LOG,
+  SUB_BALANCE_LOG,
+  SET_BALANCE,
+} from "../actions/expense";
 
 const initialState = {
   balance: 0,
@@ -21,6 +25,11 @@ const reducer = (state = initialState, action) => {
         balance: action.log.newBalance,
         expenseLogList:
           len == 1 ? [action.log] : [...state.expenseLogList, action.log],
+      };
+    case SET_BALANCE:
+      return {
+        ...state,
+        balance: action.balance,
       };
     default:
       return state;

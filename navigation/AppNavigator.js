@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
-import ExpenseNavigator from "./ExpenseNavigator";
-import Colors from "../constant/color";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { OnboardingNavigator } from "../navigator/ExpenseNavigator";
+
 import OnboardingScreen from "../screens/OnboardingScreen";
+import Colors from "../constant/color";
+import ExpenseNavigator from "./ExpenseNavigator";
 
 const AppNavigator = (props) => {
   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
