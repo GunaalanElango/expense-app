@@ -9,6 +9,7 @@ import Colors from "../constant/color";
 import HomeScreen from "../screens/HomeScreen";
 import OperationScreen from "../screens/OperationScreen";
 import LogScreen from "../screens/LogScreen";
+// import OnboardingScreen from "../screens/OnboardingScreen";
 
 const defaultStackScreenOptions = {
   headerStyle: {
@@ -21,6 +22,7 @@ const defaultStackScreenOptions = {
   },
 };
 
+const OnboardingStackNavigator = createStackNavigator();
 const HomeStackNavigator = createStackNavigator();
 const LogStackNavigator = createStackNavigator();
 
@@ -102,5 +104,16 @@ const MainNavigator = () => {
     </ExpenseTabNavigator.Navigator>
   );
 };
+
+// export const OnboardingNavigator = () => {
+//   return (
+//     <OnboardingStackNavigator.Navigator headerMode="none">
+//       <OnboardingStackNavigator.Screen
+//         name="OnboardingScreen"
+//         component={OnboardingScreen}
+//       />
+//     </OnboardingStackNavigator.Navigator>
+//   );
+// };
 
 export default MainNavigator;
