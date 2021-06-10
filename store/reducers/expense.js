@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   balance: 0,
-  expenseLogList: [{}],
+  expenseLogList: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,14 +18,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         balance: action.log.newBalance,
         expenseLogList:
-          len == 1 ? [action.log] : [action.log, ...state.expenseLogList],
+          len == 0 ? [action.log] : [action.log, ...state.expenseLogList],
       };
     case SUB_BALANCE_LOG:
       return {
         ...state,
         balance: action.log.newBalance,
         expenseLogList:
-          len == 1 ? [action.log] : [action.log, ...state.expenseLogList],
+          len == 0 ? [action.log] : [action.log, ...state.expenseLogList],
       };
     case SET_BALANCE:
       return {
