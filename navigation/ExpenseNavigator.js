@@ -47,56 +47,56 @@ const HomeNavigator = () => {
   );
 };
 
-const LogNavigator = () => {
-  return (
-    <LogStackNavigator.Navigator screenOptions={defaultStackScreenOptions}>
-      <LogStackNavigator.Screen
-        name="LogScreen"
-        component={LogScreen}
-        options={{
-          headerTitle: "Log",
-        }}
-      />
-    </LogStackNavigator.Navigator>
-  );
-};
+// const LogNavigator = () => {
+//   return (
+//     <LogStackNavigator.Navigator screenOptions={defaultStackScreenOptions}>
+//       <LogStackNavigator.Screen
+//         name="LogScreen"
+//         component={LogScreen}
+//         options={{
+//           headerTitle: "Log",
+//         }}
+//       />
+//     </LogStackNavigator.Navigator>
+//   );
+// };
 
-const ExpenseTabNavigator = createBottomTabNavigator();
+// const ExpenseTabNavigator = createBottomTabNavigator();
 
-const MainNavigator = () => {
-  return (
-    <ExpenseTabNavigator.Navigator
-      tabBarOptions={{
-        activeTintColor: Colors.black,
-      }}
-    >
-      <ExpenseTabNavigator.Screen
-        name="Home"
-        component={HomeNavigator}
-        options={{
-          tabBarIcon: (tab) => {
-            return <Entypo name="home" size={30} color={tab.color} />;
-          },
-        }}
-      />
-      <ExpenseTabNavigator.Screen
-        name="Log"
-        component={LogNavigator}
-        options={{
-          title: "All Expenses",
-          tabBarIcon: (tab) => {
-            return (
-              <MaterialIcons
-                name="question-answer"
-                size={30}
-                color={tab.color}
-              />
-            );
-          },
-        }}
-      />
-    </ExpenseTabNavigator.Navigator>
-  );
-};
+// const MainNavigator = () => {
+//   return (
+//     <ExpenseTabNavigator.Navigator
+//       tabBarOptions={{
+//         activeTintColor: Colors.black,
+//       }}
+//     >
+//       <ExpenseTabNavigator.Screen
+//         name="Home"
+//         component={HomeNavigator}
+//         options={{
+//           tabBarIcon: (tab) => {
+//             return <Entypo name="home" size={30} color={tab.color} />;
+//           },
+//         }}
+//       />
+//       <ExpenseTabNavigator.Screen
+//         name="Log"
+//         component={LogNavigator}
+//         options={{
+//           title: "All Expenses",
+//           tabBarIcon: (tab) => {
+//             return (
+//               <MaterialIcons
+//                 name="question-answer"
+//                 size={30}
+//                 color={tab.color}
+//               />
+//             );
+//           },
+//         }}
+//       />
+//     </ExpenseTabNavigator.Navigator>
+//   );
+// };
 
-export default MainNavigator;
+export default HomeNavigator;

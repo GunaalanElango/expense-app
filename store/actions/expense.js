@@ -8,16 +8,17 @@ import {
 export const ADD_BALANCE_LOG = "ADD_BALANCE_LOG";
 export const SUB_BALANCE_LOG = "SUB_BALANCE_LOG";
 export const SET_BALANCE = "SET_BALANCE";
+export const SET_LOG = "SET_LOG";
 
 export const addBalanceLog = (log) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: ADD_BALANCE_LOG, log });
       const insertOrUpdateResult = await insertOrUpdateBalance(
         log.newBalance,
         log.deviceId
       );
       const insertLogResult = await insertLog(log);
-      dispatch({ type: ADD_BALANCE_LOG, log });
     } catch (error) {
       console.log(error);
     }
@@ -27,12 +28,12 @@ export const addBalanceLog = (log) => {
 export const subBalanceLog = (log) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: SUB_BALANCE_LOG, log });
       const insertOrUpdateResult = await insertOrUpdateBalance(
         log.newBalance,
         log.deviceId
       );
       const insertLogResult = await insertLog(log);
-      dispatch({ type: SUB_BALANCE_LOG, log });
     } catch (error) {
       console.log(error);
     }
@@ -58,11 +59,19 @@ export const fetchBalance = (deviceId) => {
   };
 };
 
+export const setLog = (logList) => {
+  return { type: SET_LOG, logList };
+};
+
 export const fetchLog = (deviceId) => {
   return async (dispatch) => {
     try {
       const result = await selectLog(deviceId);
-      console.log(result.rows);
+      if (result.rows.length == 0) {
+        dispatch(setLog([]));
+      } else {
+        dispatch(setLog(result.rows._array));
+      }
     } catch (error) {
       console.log(error);
     }

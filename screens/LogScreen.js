@@ -10,7 +10,7 @@ const LogScreen = (props) => {
 
   useEffect(() => {
     dispatch(fetchLog(Application.androidId));
-  }, [balance]);
+  }, []);
 
   return (
     <View style={styles.screen}>

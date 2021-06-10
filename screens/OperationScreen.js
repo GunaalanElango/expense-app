@@ -52,19 +52,25 @@ const OperationBalanceScreen = (props) => {
 
     const curDate = new Date();
     let log = {
-      amountEntered: enteredNumber,
+      enteredAmount: enteredNumber,
       operation: props.route.params.operation,
       currentBalance: currentBalance,
-      dateTime: curDate.toString(),
+      dateAndTime: curDate.toString(),
       latitude: location ? location.coords.latitude : null,
       longitude: location ? location.coords.longitude : null,
-      deviceId: Application.androidId
+      deviceId: Application.androidId,
     };
 
     if (props.route.params.operation == "+") {
       log.newBalance = +currentBalance + enteredNumber;
       dispatch(addBalanceLog(log));
     } else {
+      if (currentBalance <= enteredAmount) {
+        Alert.alert("Invalid", "Insufficient Balance", [
+          { text: "Okay", style: "destructive" },
+        ]);
+        return;
+      }
       log.newBalance = +currentBalance - enteredNumber;
       dispatch(subBalanceLog(log));
     }

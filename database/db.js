@@ -79,11 +79,11 @@ export const insertLog = (log) => {
       longitude,
       deviceId ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
     [
-      log.amountEntered,
+      log.enteredAmount,
       log.operation,
       log.currentBalance,
       log.newBalance,
-      log.dateTime,
+      log.dateAndTime,
       log.latitude,
       log.longitude,
       log.deviceId,
@@ -92,5 +92,17 @@ export const insertLog = (log) => {
 };
 
 export const selectLog = (deviceId) => {
-  return executeSqlQuery(`SELECT * FROM log WHERE deviceId = ?`, [deviceId]);
+  return executeSqlQuery(
+    `SELECT 
+      enteredAmount,
+      operation,
+      currentBalance,
+      newBalance,
+      dateAndTime,
+      latitude,
+      longitude,
+      deviceId 
+    FROM log WHERE deviceId = ? ORDER BY id DESC`,
+    [deviceId]
+  );
 };

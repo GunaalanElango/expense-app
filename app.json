@@ -4,11 +4,11 @@
     "slug": "expenses-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/soundcloud-icon.png",
+    "icon": "./assets/money.png",
     "splash": {
-      "image": "./assets/splash-screen.png",
+      "image": "./assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2A2929"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -16,18 +16,8 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
       "package": "com.gunaalan.expensesapp"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
