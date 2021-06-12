@@ -1,18 +1,19 @@
 import React from "react";
 import { ScrollView, Text, View, StyleSheet } from "react-native";
 import Colors from "../constant/color";
+import { useSelector } from "react-redux";
 
 const ExpenseListItem = (props) => {
+  const expenses = useSelector((state) => state.expenseLogList);
+
   let expenseListItem =
-    props.expenses.length == 0
+    expenses.length == 0
       ? null
-      : props.expenses.map((expense, index) => {
+      : expenses.map((expense, index) => {
           return (
             <View style={styles.listItem} key={index.toString()}>
               <View style={styles.listText}>
-                <Text style={styles.texthead}>
-                  #{props.expenses.length - index}
-                </Text>
+                <Text style={styles.texthead}>#{expenses.length - index}</Text>
                 <Text style={styles.text}>
                   {expense.operation == "+" ? (
                     <Text>Amount Added : </Text>

@@ -101,8 +101,13 @@ export const selectLog = (deviceId) => {
       dateAndTime,
       latitude,
       longitude,
-      deviceId 
+      deviceId,
+      id
     FROM log WHERE deviceId = ? ORDER BY id DESC`,
     [deviceId]
   );
+};
+
+export const deleteLog = (id) => {
+  return executeSqlQuery(`DELETE FROM log WHERE id = ?`, [id]);
 };

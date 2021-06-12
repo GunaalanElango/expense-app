@@ -3,6 +3,7 @@ import {
   SUB_BALANCE_LOG,
   SET_BALANCE,
   SET_LOG,
+  DELETE_LOG,
 } from "../actions/expense";
 
 const initialState = {
@@ -18,14 +19,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         balance: action.log.newBalance,
         expenseLogList:
-          len == 0 ? [action.log] : [action.log, ...state.expenseLogList],
+          len == 0
+            ? [{ ...action.log, id: action.insertId }]
+            : [{ ...action.log, id: action.insertId }, ...state.expenseLogList],
       };
     case SUB_BALANCE_LOG:
       return {
         ...state,
         balance: action.log.newBalance,
         expenseLogList:
-          len == 0 ? [action.log] : [action.log, ...state.expenseLogList],
+          len == 0
+            ? [{ ...action.log, id: action.insertId }]
+            : [{ ...action.log, id: action.insertId }, ...state.expenseLogList],
       };
     case SET_BALANCE:
       return {
@@ -36,6 +41,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         expenseLogList: [...action.logList],
+      };
+    case DELETE_LOG:
+      const copiedArr = [...state.expenseLogList];
+      copiedArr.splice(action.index, 1);
+      return {
+        ...state,
+        expenseLogList: copiedArr,
       };
     default:
       return state;

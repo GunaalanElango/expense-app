@@ -3,22 +3,28 @@ import {
   insertOrUpdateBalance,
   insertLog,
   selectLog,
+  deleteLog,
 } from "../../database/db";
 
 export const ADD_BALANCE_LOG = "ADD_BALANCE_LOG";
 export const SUB_BALANCE_LOG = "SUB_BALANCE_LOG";
 export const SET_BALANCE = "SET_BALANCE";
 export const SET_LOG = "SET_LOG";
+export const DELETE_LOG = "DELETE_LOG";
 
 export const addBalanceLog = (log) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: ADD_BALANCE_LOG, log });
       const insertOrUpdateResult = await insertOrUpdateBalance(
         log.newBalance,
         log.deviceId
       );
       const insertLogResult = await insertLog(log);
+      dispatch({
+        type: ADD_BALANCE_LOG,
+        log,
+        insertId: insertLogResult.insertId,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -28,12 +34,16 @@ export const addBalanceLog = (log) => {
 export const subBalanceLog = (log) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: SUB_BALANCE_LOG, log });
       const insertOrUpdateResult = await insertOrUpdateBalance(
         log.newBalance,
         log.deviceId
       );
       const insertLogResult = await insertLog(log);
+      dispatch({
+        type: SUB_BALANCE_LOG,
+        log,
+        insertId: insertLogResult.insertId,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -72,6 +82,21 @@ export const fetchLog = (deviceId) => {
       } else {
         dispatch(setLog(result.rows._array));
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const removeList = (index) => {
+  return { type: DELETE_LOG, index };
+};
+
+export const removeLog = (id, index) => {
+  return async (dispatch) => {
+    try {
+      dispatch(removeList(index));
+      const result = await deleteLog(id);
     } catch (error) {
       console.log(error);
     }

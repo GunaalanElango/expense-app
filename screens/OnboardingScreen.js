@@ -6,17 +6,14 @@ import Colors from "../constant/color";
 const OnboardingScreen = (props) => {
   return (
     <Onboarding
-      onSkip={props.onSkipDone}
-      onDone={props.onSkipDone}
+      showNext={false}
+      showSkip={false}
+      onDone={props.onDone}
       pages={[
         {
           backgroundColor: Colors.black,
           image: (
-            <FontAwesome
-              name="paper-plane"
-              size={150}
-              color={Colors.orange}
-            />
+            <FontAwesome name="paper-plane" size={150} color={Colors.orange} />
           ),
           title: "Welcome To ExpenseApp",
           titleStyles: {

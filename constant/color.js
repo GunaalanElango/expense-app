@@ -5,4 +5,5 @@ export default {
   violet: "#F2CDF2",
   darkViolet: "#500559",
   backgroundViolet: "#FCF4FC",
+  red: "#E70909",
 };
