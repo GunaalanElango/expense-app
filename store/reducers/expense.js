@@ -4,6 +4,7 @@ import {
   SET_BALANCE,
   SET_LOG,
   DELETE_LOG,
+  UPDATE_LOG,
 } from "../actions/expense";
 
 const initialState = {
@@ -48,6 +49,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         expenseLogList: copiedArr,
+      };
+    case UPDATE_LOG:
+      const updatedArr = state.expenseLogList.map((ex, index) => {
+        if (index == action.index) {
+          ex.operation = action.operation;
+          ex.enteredAmount = action.enteredAmount;
+        }
+        return ex;
+      });
+      return {
+        ...state,
+        expenseLogList: updatedArr,
       };
     default:
       return state;

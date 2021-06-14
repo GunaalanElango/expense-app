@@ -8,6 +8,7 @@ import Colors from "../constant/color";
 import HomeScreen from "../screens/HomeScreen";
 import OperationScreen from "../screens/OperationScreen";
 import LogScreen from "../screens/LogScreen";
+import UpdateScreen from "../screens/UpdateScreen";
 
 const defaultStackScreenOptions = {
   headerStyle: {
@@ -42,6 +43,13 @@ const HomeNavigator = () => {
               ? "Add Balance"
               : "Subtract Balance",
         })}
+      />
+      <HomeStackNavigator.Screen
+        name="UpdateScreen"
+        component={UpdateScreen}
+        options={{
+          title: "Update Expense",
+        }}
       />
     </HomeStackNavigator.Navigator>
   );

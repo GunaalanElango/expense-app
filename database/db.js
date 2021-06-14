@@ -111,3 +111,10 @@ export const selectLog = (deviceId) => {
 export const deleteLog = (id) => {
   return executeSqlQuery(`DELETE FROM log WHERE id = ?`, [id]);
 };
+
+export const updateLog = (id, operation, enteredAmount) => {
+  return executeSqlQuery(
+    `UPDATE log SET operation = ?, enteredAmount = ? WHERE id = ?`,
+    [operation, enteredAmount, id]
+  );
+};

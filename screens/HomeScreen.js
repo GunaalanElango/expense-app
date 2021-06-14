@@ -10,7 +10,7 @@ import BalanceCard from "../components/BalanceCard";
 // import ExpenseListItem from "../components/ExpenseListItem";
 import Colors from "../constant/color";
 
-const ExpenseItem = ({ expense, onDelete, index }) => {
+const ExpenseItem = ({ expense, onDelete, index, onUpdate }) => {
   return (
     <View style={styles.listItem}>
       <View style={styles.indexContainer}>
@@ -25,7 +25,10 @@ const ExpenseItem = ({ expense, onDelete, index }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <MainButton buttonStyle={styles.buttonStyle} clicked>
+        <MainButton
+          buttonStyle={styles.buttonStyle}
+          clicked={() => onUpdate(expense.id, index)}
+        >
           <MaterialIcons name="mode-edit" size={25} color={Colors.darkViolet} />
         </MainButton>
         <MainButton
@@ -51,7 +54,10 @@ const HomeScreen = (props) => {
 
   const onDeleteHandler = (id, index) => {
     dispatch(removeLog(id, index));
-    console.log(id, index);
+  };
+
+  const onUpdateHandler = (id, index) => {
+    props.navigation.navigate("UpdateScreen", { id, index });
   };
 
   return (
@@ -82,6 +88,7 @@ const HomeScreen = (props) => {
                 expense={item}
                 index={index}
                 onDelete={onDeleteHandler}
+                onUpdate={onUpdateHandler}
               />
             );
           }}
