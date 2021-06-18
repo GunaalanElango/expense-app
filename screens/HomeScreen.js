@@ -1,99 +1,24 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, FlatList, Text } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import * as Application from "expo-application";
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { StyleSheet, View, Button } from "react-native";
+import { useDispatch } from "react-redux";
 
-import MainButton from "../components/MainButton";
-import { fetchBalance, fetchLog, removeLog } from "../store/actions/expense";
-import BalanceCard from "../components/BalanceCard";
-// import ExpenseListItem from "../components/ExpenseListItem";
+import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
 
-const ExpenseItem = ({ expense, onDelete, index, onUpdate }) => {
-  return (
-    <View style={styles.listItem}>
-      <View style={styles.indexContainer}>
-        <Text style={styles.text}>#{expense.id}</Text>
-      </View>
-
-      <View style={styles.exp}>
-        <Text style={styles.text}>
-          {expense.currentBalance} {expense.operation} {expense.enteredAmount}{" "}
-          =&gt; {expense.newBalance}
-        </Text>
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <MainButton
-          buttonStyle={styles.buttonStyle}
-          clicked={() => onUpdate(expense.id, index)}
-        >
-          <MaterialIcons name="mode-edit" size={25} color={Colors.darkViolet} />
-        </MainButton>
-        <MainButton
-          buttonStyle={styles.buttonStyle}
-          clicked={() => onDelete(expense.id, index)}
-        >
-          <AntDesign name="delete" size={25} color={Colors.red} />
-        </MainButton>
-      </View>
-    </View>
-  );
-};
-
 const HomeScreen = (props) => {
-  const balance = useSelector((state) => state.balance);
-  const expenses = useSelector((state) => state.expenseLogList);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchBalance(Application.androidId));
-    dispatch(fetchLog(Application.androidId));
-  }, []);
-
-  const onDeleteHandler = (id, index) => {
-    dispatch(removeLog(id, index));
-  };
-
-  const onUpdateHandler = (id, index) => {
-    props.navigation.navigate("UpdateScreen", { id, index });
-  };
+    dispatch(fetchExpenseData());
+  }, [dispatch]);
 
   return (
     <View style={styles.screen}>
-      <BalanceCard
-        balanceAmount={balance}
-        onAddBtn={() =>
-          props.navigation.navigate("OperationScreen", {
-            operation: "+",
-          })
-        }
-        onSubBtn={() =>
-          props.navigation.navigate("OperationScreen", {
-            operation: "-",
-          })
-        }
+      <Button
+        title="Add Expense"
+        onPress={() => props.navigation.navigate("AddExpenseScreen")}
+        color={Colors.orange}
       />
-      <View style={styles.listContainer}>
-        <FlatList
-          contentContainerStyle={{
-            flexGrow: 1,
-          }}
-          data={expenses}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => {
-            return (
-              <ExpenseItem
-                expense={item}
-                index={index}
-                onDelete={onDeleteHandler}
-                onUpdate={onUpdateHandler}
-              />
-            );
-          }}
-        />
-      </View>
     </View>
   );
 };
@@ -102,41 +27,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
-  },
-  listContainer: {
-    flex: 1,
-    width: "90%",
-  },
-  listItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: Colors.darkViolet,
-    borderWidth: 1,
-    marginTop: 10,
-    backgroundColor: Colors.violet,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-  },
-  indexContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-  exp: {
-    flex: 3,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 12,
-    color: Colors.darkViolet,
-  },
-  buttonContainer: {
-    flex: 2,
-    flexDirection: "row",
-  },
-  buttonStyle: {
-    marginHorizontal: 10,
+    marginTop: 20,
   },
 });
 

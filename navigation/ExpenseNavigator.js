@@ -6,105 +6,104 @@ import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../constant/color";
 import HomeScreen from "../screens/HomeScreen";
-import OperationScreen from "../screens/OperationScreen";
-import LogScreen from "../screens/LogScreen";
-import UpdateScreen from "../screens/UpdateScreen";
+import AddExpenseScreen from "../screens/AddExpenseScreen";
+import ExpenseScreen from "../screens/ExpenseScreen";
+import ExpenseDetailScreen from "../screens/ExpenseDetailScreen";
 
 const defaultStackScreenOptions = {
   headerStyle: {
     backgroundColor: Colors.black,
   },
-  headerTitleAlign: "center",
+  headerTitleAlign: "left",
   headerTintColor: Colors.white,
-  headerTitleStyle: {
-    fontWeight: "bold",
-  },
 };
 
-const HomeStackNavigator = createStackNavigator();
-const LogStackNavigator = createStackNavigator();
+const ExpenseStackNavigator = createStackNavigator();
+const ExpenseListStackNavigator = createStackNavigator();
 
-const HomeNavigator = () => {
+const ExpenseStackNav = () => {
   return (
-    <HomeStackNavigator.Navigator screenOptions={defaultStackScreenOptions}>
-      <HomeStackNavigator.Screen
+    <ExpenseStackNavigator.Navigator
+      mode="card"
+      screenOptions={defaultStackScreenOptions}
+    >
+      <ExpenseStackNavigator.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
           title: "ExpenseApp",
         }}
       />
-      <HomeStackNavigator.Screen
-        name="OperationScreen"
-        component={OperationScreen}
-        options={(props) => ({
-          title:
-            props.route.params.operation == "+"
-              ? "Add Balance"
-              : "Subtract Balance",
-        })}
-      />
-      <HomeStackNavigator.Screen
-        name="UpdateScreen"
-        component={UpdateScreen}
+      <ExpenseStackNavigator.Screen
+        name="AddExpenseScreen"
+        component={AddExpenseScreen}
         options={{
-          title: "Update Expense",
+          title: "Add Expense",
         }}
       />
-    </HomeStackNavigator.Navigator>
+    </ExpenseStackNavigator.Navigator>
   );
 };
 
-// const LogNavigator = () => {
-//   return (
-//     <LogStackNavigator.Navigator screenOptions={defaultStackScreenOptions}>
-//       <LogStackNavigator.Screen
-//         name="LogScreen"
-//         component={LogScreen}
-//         options={{
-//           headerTitle: "Log",
-//         }}
-//       />
-//     </LogStackNavigator.Navigator>
-//   );
-// };
+const ExpenseListStackNav = () => {
+  return (
+    <ExpenseListStackNavigator.Navigator
+      screenOptions={defaultStackScreenOptions}
+    >
+      <ExpenseListStackNavigator.Screen
+        name="ExpenseListScreen"
+        component={ExpenseScreen}
+        options={{
+          title: "All Expenses",
+        }}
+      />
+      <ExpenseListStackNavigator.Screen
+        name="ExpenseDetailScreen"
+        component={ExpenseDetailScreen}
+        options={{
+          title: "Detail",
+        }}
+      />
+    </ExpenseListStackNavigator.Navigator>
+  );
+};
 
-// const ExpenseTabNavigator = createBottomTabNavigator();
+const ExpenseTabNavigator = createBottomTabNavigator();
 
-// const MainNavigator = () => {
-//   return (
-//     <ExpenseTabNavigator.Navigator
-//       tabBarOptions={{
-//         activeTintColor: Colors.black,
-//       }}
-//     >
-//       <ExpenseTabNavigator.Screen
-//         name="Home"
-//         component={HomeNavigator}
-//         options={{
-//           tabBarIcon: (tab) => {
-//             return <Entypo name="home" size={30} color={tab.color} />;
-//           },
-//         }}
-//       />
-//       <ExpenseTabNavigator.Screen
-//         name="Log"
-//         component={LogNavigator}
-//         options={{
-//           title: "All Expenses",
-//           tabBarIcon: (tab) => {
-//             return (
-//               <MaterialIcons
-//                 name="question-answer"
-//                 size={30}
-//                 color={tab.color}
-//               />
-//             );
-//           },
-//         }}
-//       />
-//     </ExpenseTabNavigator.Navigator>
-//   );
-// };
+const ExpenseTabNav = () => {
+  return (
+    <ExpenseTabNavigator.Navigator
+      tabBarOptions={{
+        activeTintColor: Colors.black,
+      }}
+    >
+      <ExpenseTabNavigator.Screen
+        name="Home"
+        component={ExpenseStackNav}
+        options={{
+          tabBarIcon: (tab) => {
+            return <Entypo name="home" size={30} color={tab.color} />;
+          },
+        }}
+      />
+      <ExpenseTabNavigator.Screen
+        name="Expenses"
+        component={ExpenseListStackNav}
+        options={{
+          title: "All Expenses",
+          tabBarIcon: (tab) => {
+            return (
+              <MaterialIcons
+                name="question-answer"
+                size={30}
+                color={tab.color}
+              />
+            );
+          },
+        }}
+      />
+    </ExpenseTabNavigator.Navigator>
+  );
+};
 
-export default HomeNavigator;
+export default ExpenseTabNav;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { enableScreens } from "react-native-screens";
-
+import { StatusBar } from "expo-status-bar";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
@@ -8,8 +8,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import OnboardingScreen from "./screens/OnboardingScreen";
 import AppNavigator from "./navigation/AppNavigator";
+import Colors from "./constant/color";
 import expenseReducer from "./store/reducers/expense";
-import { createBalanceTable, createLogTable } from "./database/db";
 
 const store = createStore(expenseReducer, applyMiddleware(thunk));
 
@@ -29,16 +29,6 @@ export default function App() {
     });
   }, []);
 
-  useEffect(() => {
-    createBalanceTable()
-      .then((result) => console.log("Balance table initialized..."))
-      .catch((error) => console.log(error));
-
-    createLogTable()
-      .then((result) => console.log("Log table initialized..."))
-      .catch((error) => console.log(error));
-  }, []);
-
   if (isFirstLaunch == null) {
     return null;
   } else if (isFirstLaunch == "true") {
@@ -46,6 +36,7 @@ export default function App() {
   } else if (isFirstLaunch == "false") {
     return (
       <Provider store={store}>
+        <StatusBar backgroundColor={Colors.white} />
         <AppNavigator />
       </Provider>
     );

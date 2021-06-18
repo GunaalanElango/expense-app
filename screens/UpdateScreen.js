@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-import Styles from "../constant/styles";
+// import Styles from "../constant/styles";
 import Colors from "../constant/color";
 import MainButton from "../components/MainButton";
 import { editLog } from "../store/actions/expense";
