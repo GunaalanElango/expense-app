@@ -14,6 +14,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
 import Colors from "../constant/color";
+import getDateFunction from "../util/getDateByTimestamp";
 
 const ExpenseScreen = (props) => {
   const expenseData = useSelector((state) => state.expenses);
@@ -30,35 +31,6 @@ const ExpenseScreen = (props) => {
     props.navigation.navigate("ExpenseDetailScreen", {
       id: id,
     });
-  };
-
-  const getDateFunction = (timestamp) => {
-    const date = new Date(timestamp);
-
-    const day = date.getDate();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-
-    const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-    const minutes =
-      date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-    const a = date.getHours() >= 12 ? "PM" : "AM";
-
-    let isToday = false;
-    const todayDate = new Date();
-    if (
-      day == todayDate.getDate() &&
-      month == todayDate.getMonth() &&
-      year == todayDate.getFullYear()
-    ) {
-      isToday = true;
-    }
-
-    if (isToday) {
-      return `Today, ${hours}:${minutes} ${a}`;
-    }
-
-    return `${day}/${month}/${year}, ${hours}:${minutes} ${a}`;
   };
 
   if (expenseData.length == 0) {
@@ -139,7 +111,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    fontWeight: "bold",
     color: Colors.darkViolet,
   },
   body: {
