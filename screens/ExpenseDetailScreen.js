@@ -12,28 +12,33 @@ const ExpenseDetailScreen = (props) => {
   const expenses = useSelector((state) => state.expenses);
 
   const expense = expenses.find(
-    (expense, index) => props.route.params.id == index
+    (expense, index) => props.route.params.index == index
   );
 
   const dispatch = useDispatch();
 
   const onDeleteHandler = async () => {
-    const response = await fetch(
+    await fetch(
       "https://60cb210521337e0017e43e34.mockapi.io/expense/" + expense.id,
       {
         method: "DELETE",
       }
     );
-    const responseData = await response.json();
     dispatch(fetchExpenseData());
     props.navigation.navigate("ExpenseListScreen");
+  };
+
+  const onUpdateHandler = async () => {
+    props.navigation.navigate("UpdateExpenseScreen", {
+      index: props.route.params.index,
+    });
   };
 
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => (
         <View style={{ marginHorizontal: 10, flexDirection: "row" }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onUpdateHandler}>
             <MaterialIcons name="edit" size={24} color={Colors.orange} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -56,7 +61,10 @@ const ExpenseDetailScreen = (props) => {
           {expense.amount}
         </Text>
         <Text style={styles.time}>
-          You Added on {getDateByEpoch(expense.time)}
+          Last updated on {getDateByEpoch(expense.updatedAt)}
+        </Text>
+        <Text style={styles.time}>
+          You added on {getDateByEpoch(expense.createdAt)}
         </Text>
       </View>
     );
@@ -80,6 +88,11 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 30,
     fontWeight: "bold",
+  },
+  time: {
+    fontSize: 12,
+    color: "rgba(0,0,0,0.4)",
+    marginVertical: 10,
   },
 });
 

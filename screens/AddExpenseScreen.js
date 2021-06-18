@@ -59,7 +59,8 @@ const AddExpenseScreen = (props) => {
           body: JSON.stringify({
             amount: enteredAmount,
             description: enteredDesc,
-            time: Date.now(),
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
           }),
         }
       );

@@ -27,9 +27,9 @@ const ExpenseScreen = (props) => {
   //   };
   // });
 
-  const onClickHandler = (id) => {
+  const onClickHandler = (index) => {
     props.navigation.navigate("ExpenseDetailScreen", {
-      id: id,
+      index: index,
     });
   };
 
@@ -73,7 +73,7 @@ const ExpenseScreen = (props) => {
                     <FontAwesome name="rupee" size={13} color={Colors.red} />
                     <Text style={{ color: Colors.red }}>{item.amount}</Text>
                   </Text>
-                  <Text>{getDateFunction(item.time)}</Text>
+                  <Text>{getDateFunction(item.createdAt)}</Text>
                 </View>
               </View>
             </TouchableNativeFeedback>

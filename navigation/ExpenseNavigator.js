@@ -9,6 +9,7 @@ import HomeScreen from "../screens/HomeScreen";
 import AddExpenseScreen from "../screens/AddExpenseScreen";
 import ExpenseScreen from "../screens/ExpenseScreen";
 import ExpenseDetailScreen from "../screens/ExpenseDetailScreen";
+import UpdateExpenseScreen from "../screens/UpdateScreen";
 
 const defaultStackScreenOptions = {
   headerStyle: {
@@ -62,6 +63,13 @@ const ExpenseListStackNav = () => {
         component={ExpenseDetailScreen}
         options={{
           title: "Detail",
+        }}
+      />
+      <ExpenseListStackNavigator.Screen
+        name="UpdateExpenseScreen"
+        component={UpdateExpenseScreen}
+        options={{
+          title: "Update Expense",
         }}
       />
     </ExpenseListStackNavigator.Navigator>
