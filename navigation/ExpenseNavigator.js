@@ -83,7 +83,7 @@ const HomeTabs = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{
           tabBarIcon: (tab) => {
@@ -95,7 +95,6 @@ const HomeTabs = () => {
         name="ExpenseListScreen"
         component={ExpenseScreen}
         options={{
-          title: "All Expenses",
           tabBarIcon: (tab) => {
             return (
               <MaterialIcons
@@ -111,7 +110,6 @@ const HomeTabs = () => {
         name="FriendScreen"
         component={FriendScreen}
         options={{
-          title: "Friends",
           tabBarIcon: (tab) => {
             return <FontAwesome5 name="user-alt" size={30} color={tab.color} />;
           },
@@ -135,7 +133,9 @@ const MainStack = () => {
       <Stack.Screen
         name="Home"
         component={HomeTabs}
-        options={{ title: "ExpenseApp" }}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="AddExpenseScreen"

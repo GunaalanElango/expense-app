@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { StatusBar } from "react-native";
 import { enableScreens } from "react-native-screens";
-import { StatusBar } from "expo-status-bar";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
@@ -36,7 +36,7 @@ export default function App() {
   } else if (isFirstLaunch == "false") {
     return (
       <Provider store={store}>
-        <StatusBar backgroundColor={Colors.white} />
+        <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
         <AppNavigator />
       </Provider>
     );

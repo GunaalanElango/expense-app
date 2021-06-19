@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     marginTop: 20,
-    paddingLeft: "20%",
+    paddingHorizontal: "20%",
   },
   heading: {
     fontSize: 25,

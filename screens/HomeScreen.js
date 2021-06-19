@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View, Button, Text } from "react-native";
 import { useDispatch } from "react-redux";
 
 import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
+import Header from "../components/Header";
 // import { useIsFocused } from "@react-navigation/native";
 
 const HomeScreen = (props) => {
@@ -15,11 +16,14 @@ const HomeScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <Button
-        title="Add Expense"
-        onPress={() => props.navigation.navigate("AddExpenseScreen")}
-        color={Colors.orange}
-      />
+      <Header title="ExpenseApp" />
+      <View style={styles.button}>
+        <Button
+          title="Add Expense"
+          onPress={() => props.navigation.navigate("AddExpenseScreen")}
+          color={Colors.orange}
+        />
+      </View>
     </View>
   );
 };
@@ -27,8 +31,10 @@ const HomeScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  button: {
     alignItems: "center",
-    marginTop: 20,
+    marginVertical: 20,
   },
 });
 

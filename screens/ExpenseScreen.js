@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 
 import Colors from "../constant/color";
 import getDateFunction from "../util/getDateByTimestamp";
+import Header from "../components/Header";
 
 const ExpenseScreen = (props) => {
   const expenseData = useSelector((state) => state.expenses);
@@ -52,40 +53,48 @@ const ExpenseScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <FlatList
-        style={styles.list}
-        data={expenseData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => {
-          return (
-            <TouchableNativeFeedback onPress={() => onClickHandler(index)}>
-              <View style={styles.listItem}>
-                <View style={styles.index}>
-                  <Text style={styles.text}>{expenseData.length - index}</Text>
+      <Header title="All Expenses" />
+      <View style={styles.screenContent}>
+        <FlatList
+          style={styles.list}
+          data={expenseData}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableNativeFeedback onPress={() => onClickHandler(index)}>
+                <View style={styles.listItem}>
+                  <View style={styles.index}>
+                    <Text style={styles.text}>
+                      {expenseData.length - index}
+                    </Text>
+                  </View>
+                  <View style={styles.body}>
+                    <Text>
+                      You added "
+                      <Text style={styles.highlight}>{item.description}</Text>".
+                    </Text>
+                    <Text>
+                      You Spent{" "}
+                      <FontAwesome name="rupee" size={13} color={Colors.red} />
+                      <Text style={{ color: Colors.red }}>{item.amount}</Text>
+                    </Text>
+                    <Text>{getDateFunction(item.createdAt)}</Text>
+                  </View>
                 </View>
-                <View style={styles.body}>
-                  <Text>
-                    You added "
-                    <Text style={styles.highlight}>{item.description}</Text>".
-                  </Text>
-                  <Text>
-                    You Spent{" "}
-                    <FontAwesome name="rupee" size={13} color={Colors.red} />
-                    <Text style={{ color: Colors.red }}>{item.amount}</Text>
-                  </Text>
-                  <Text>{getDateFunction(item.createdAt)}</Text>
-                </View>
-              </View>
-            </TouchableNativeFeedback>
-          );
-        }}
-      />
+              </TouchableNativeFeedback>
+            );
+          }}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
+    flex: 1,
+  },
+  screenContent: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

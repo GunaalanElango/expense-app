@@ -45,7 +45,7 @@ const AddExpenseScreen = (props) => {
       if (enteredDesc.trim().length == 0) {
         return Alert.alert(
           "Description Invalid",
-          "Description should not be empty"
+          "Description should not be empty and not more than 20 charactors long"
         );
       }
       setIsLoading(true);
