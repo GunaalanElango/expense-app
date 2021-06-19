@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -66,8 +66,12 @@ const AddExpenseScreen = (props) => {
       );
       dispatch(fetchExpenseData());
       setIsLoading(false);
-      Alert.alert("Successfull", "Expense Added Successfully");
-      props.navigation.navigate("HomeScreen");
+      Alert.alert("Successfull", "Expense Added Successfully", [
+        {
+          text: "Okay",
+          onPress: () => props.navigation.navigate("ExpenseListScreen"),
+        },
+      ]);
     } catch (error) {
       console.log(error);
     }

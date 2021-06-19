@@ -42,7 +42,7 @@ const ExpenseScreen = (props) => {
           </Text>
           <Button
             title="Add Your Expense Here"
-            onPress={() => props.navigation.navigate("HomeScreen")}
+            onPress={() => props.navigation.navigate("AddExpenseScreen")}
             color={Colors.black}
           />
         </View>
@@ -61,7 +61,7 @@ const ExpenseScreen = (props) => {
             <TouchableNativeFeedback onPress={() => onClickHandler(index)}>
               <View style={styles.listItem}>
                 <View style={styles.index}>
-                  <Text style={styles.text}>{item.id}</Text>
+                  <Text style={styles.text}>{expenseData.length - index}</Text>
                 </View>
                 <View style={styles.body}>
                   <Text>

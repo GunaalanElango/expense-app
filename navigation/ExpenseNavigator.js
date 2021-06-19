@@ -10,93 +10,90 @@ import AddExpenseScreen from "../screens/AddExpenseScreen";
 import ExpenseScreen from "../screens/ExpenseScreen";
 import ExpenseDetailScreen from "../screens/ExpenseDetailScreen";
 import UpdateExpenseScreen from "../screens/UpdateScreen";
+import FriendScreen from "../screens/FriendScreen";
 
-const defaultStackScreenOptions = {
-  headerStyle: {
-    backgroundColor: Colors.black,
-  },
-  headerTitleAlign: "left",
-  headerTintColor: Colors.white,
-};
+// const ExpenseStackNavigator = createStackNavigator();
+// const ExpenseListStackNavigator = createStackNavigator();
 
-const ExpenseStackNavigator = createStackNavigator();
-const ExpenseListStackNavigator = createStackNavigator();
+// const ExpenseStackNav = () => {
+//   return (
+//     <ExpenseStackNavigator.Navigator
+//       mode="card"
+//       screenOptions={defaultStackScreenOptions}
+//       initialRouteName="HomeScreen"
+//       detachInactiveScreens={true}
+//     >
+//       <ExpenseStackNavigator.Screen
+//         name="HomeScreen"
+//         component={HomeScreen}
+//         options={{
+//           title: "ExpenseApp",
+//         }}
+//       />
+//       <ExpenseStackNavigator.Screen
+//         name="AddExpenseScreen"
+//         component={AddExpenseScreen}
+//         options={{
+//           title: "Add Expense",
+//         }}
+//       />
+//     </ExpenseStackNavigator.Navigator>
+//   );
+// };
 
-const ExpenseStackNav = () => {
+// const ExpenseListStackNav = () => {
+//   return (
+//     <ExpenseListStackNavigator.Navigator
+//       screenOptions={defaultStackScreenOptions}
+//       initialRouteName="ExpenseListScreen"
+//     >
+//       <ExpenseListStackNavigator.Screen
+//         name="ExpenseListScreen"
+//         component={ExpenseScreen}
+//         options={{
+//           title: "All Expenses",
+//         }}
+//       />
+//       <ExpenseListStackNavigator.Screen
+//         name="ExpenseDetailScreen"
+//         component={ExpenseDetailScreen}
+//         options={{
+//           title: "Detail",
+//         }}
+//       />
+//       <ExpenseListStackNavigator.Screen
+//         name="UpdateExpenseScreen"
+//         component={UpdateExpenseScreen}
+//         options={{
+//           title: "Update Expense",
+//         }}
+//       />
+//     </ExpenseListStackNavigator.Navigator>
+//   );
+// };
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const HomeTabs = () => {
   return (
-    <ExpenseStackNavigator.Navigator
-      mode="card"
-      screenOptions={defaultStackScreenOptions}
-    >
-      <ExpenseStackNavigator.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{
-          title: "ExpenseApp",
-        }}
-      />
-      <ExpenseStackNavigator.Screen
-        name="AddExpenseScreen"
-        component={AddExpenseScreen}
-        options={{
-          title: "Add Expense",
-        }}
-      />
-    </ExpenseStackNavigator.Navigator>
-  );
-};
-
-const ExpenseListStackNav = () => {
-  return (
-    <ExpenseListStackNavigator.Navigator
-      screenOptions={defaultStackScreenOptions}
-    >
-      <ExpenseListStackNavigator.Screen
-        name="ExpenseListScreen"
-        component={ExpenseScreen}
-        options={{
-          title: "All Expenses",
-        }}
-      />
-      <ExpenseListStackNavigator.Screen
-        name="ExpenseDetailScreen"
-        component={ExpenseDetailScreen}
-        options={{
-          title: "Detail",
-        }}
-      />
-      <ExpenseListStackNavigator.Screen
-        name="UpdateExpenseScreen"
-        component={UpdateExpenseScreen}
-        options={{
-          title: "Update Expense",
-        }}
-      />
-    </ExpenseListStackNavigator.Navigator>
-  );
-};
-
-const ExpenseTabNavigator = createBottomTabNavigator();
-
-const ExpenseTabNav = () => {
-  return (
-    <ExpenseTabNavigator.Navigator
+    <Tab.Navigator
       tabBarOptions={{
         activeTintColor: Colors.black,
       }}
     >
-      <ExpenseTabNavigator.Screen
+      <Tab.Screen
         name="Home"
-        component={ExpenseStackNav}
+        component={HomeScreen}
         options={{
           tabBarIcon: (tab) => {
             return <Entypo name="home" size={30} color={tab.color} />;
           },
         }}
       />
-      <ExpenseTabNavigator.Screen
-        name="Expenses"
-        component={ExpenseListStackNav}
+      <Tab.Screen
+        name="ExpenseListScreen"
+        component={ExpenseScreen}
         options={{
           title: "All Expenses",
           tabBarIcon: (tab) => {
@@ -110,8 +107,53 @@ const ExpenseTabNav = () => {
           },
         }}
       />
-    </ExpenseTabNavigator.Navigator>
+      <Tab.Screen
+        name="FriendScreen"
+        component={FriendScreen}
+        options={{
+          title: "Friends",
+          tabBarIcon: (tab) => {
+            return <Entypo name="users" size={30} color={tab.color} />;
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
-export default ExpenseTabNav;
+const MainStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.black,
+        },
+        headerTitleAlign: "left",
+        headerTintColor: Colors.white,
+      }}
+    >
+      <Stack.Screen
+        name="Home"
+        component={HomeTabs}
+        options={{ title: "ExpenseApp" }}
+      />
+      <Stack.Screen
+        name="AddExpenseScreen"
+        component={AddExpenseScreen}
+        options={{ title: "Add Expense" }}
+      />
+      <Stack.Screen
+        name="ExpenseDetailScreen"
+        component={ExpenseDetailScreen}
+        options={{ title: "Detail" }}
+      />
+      <Stack.Screen
+        name="UpdateExpenseScreen"
+        component={UpdateExpenseScreen}
+        options={{ title: "Update Expense" }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export default MainStack;

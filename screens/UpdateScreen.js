@@ -74,10 +74,16 @@ const UpdateExpenseScreen = (props) => {
       );
       dispatch(fetchExpenseData());
       setIsLoading(false);
-      Alert.alert("Successfull", "Expense Updated Successfully");
-      props.navigation.navigate("ExpenseDetailScreen", {
-        index: props.route.params.index,
-      });
+      Alert.alert("Successfull", "Expense Updated Successfully", [
+        {
+          text: "Okay",
+          onPress: () => {
+            props.navigation.navigate("ExpenseDetailScreen", {
+              index: props.route.params.index,
+            });
+          },
+        },
+      ]);
     } catch (error) {
       console.log(error);
     }

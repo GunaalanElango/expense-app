@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
+// import { useIsFocused } from "@react-navigation/native";
 
 const HomeScreen = (props) => {
   const dispatch = useDispatch();
