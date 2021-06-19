@@ -2,7 +2,7 @@ import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Entypo, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
 import Colors from "../constant/color";
 import HomeScreen from "../screens/HomeScreen";
@@ -113,7 +113,7 @@ const HomeTabs = () => {
         options={{
           title: "Friends",
           tabBarIcon: (tab) => {
-            return <Entypo name="users" size={30} color={tab.color} />;
+            return <FontAwesome5 name="user-alt" size={30} color={tab.color} />;
           },
         }}
       />
