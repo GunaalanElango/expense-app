@@ -18,7 +18,7 @@ import getDateFunction from "../util/getDateByTimestamp";
 import Header from "../components/Header";
 
 const ExpenseScreen = (props) => {
-  const expenseData = useSelector((state) => state.expenses);
+  const expenseData = useSelector((state) => state.expense.expenses);
 
   // useEffect(() => {
   //   props.navigation.addListener("focus", loadExpenseData);
@@ -37,7 +37,7 @@ const ExpenseScreen = (props) => {
   if (expenseData.length == 0) {
     return (
       <View style={styles.screen}>
-        <View style={{ marginTop: 20 }}>
+        <View style={styles.screenContent}>
           <Text style={{ fontSize: 20, color: Colors.orange }}>
             Your Expenses is Empty!
           </Text>

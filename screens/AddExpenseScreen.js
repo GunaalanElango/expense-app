@@ -12,12 +12,13 @@ import {
   SimpleLineIcons,
   FontAwesome,
 } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
 
 const AddExpenseScreen = (props) => {
+  const userId = useSelector((state) => state.user.userId);
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
 
@@ -64,7 +65,7 @@ const AddExpenseScreen = (props) => {
           }),
         }
       );
-      dispatch(fetchExpenseData());
+      dispatch(fetchExpenseData(userId));
       setIsLoading(false);
       Alert.alert("Successfull", "Expense Added Successfully", [
         {

@@ -1,15 +1,18 @@
 export const SET_EXPENSE_LIST = "SET_EXPENSE_LIST";
 
-export const fetchExpenseData = () => {
+export const fetchExpenseData = (userId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://60cb210521337e0017e43e34.mockapi.io/expense"
+        "https://60cb210521337e0017e43e34.mockapi.io/users/" +
+          userId +
+          "/expense"
       );
 
       if (!response.ok) {
-        throw new Error("Something Went Wrong");
+        throw new Error("Something went wrong in fetch expense data");
       }
+
       const responseData = await response.json();
       dispatch({
         type: SET_EXPENSE_LIST,

@@ -9,7 +9,7 @@ import getDateByEpoch from "../util/getDateByTimestamp";
 import Colors from "../constant/color";
 
 const ExpenseDetailScreen = (props) => {
-  const expenses = useSelector((state) => state.expenses);
+  const expenses = useSelector((state) => state.expense.expenses);
 
   const expense = expenses.find(
     (expense, index) => props.route.params.index == index

@@ -18,7 +18,8 @@ import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
 
 const UpdateExpenseScreen = (props) => {
-  const expenses = useSelector((state) => state.expenses);
+  const expenses = useSelector((state) => state.expense.expenses);
+  const userId = useSelector((state) => state.user.userId);
 
   const expense = expenses.find(
     (expense, index) => index == props.route.params.index
@@ -72,7 +73,7 @@ const UpdateExpenseScreen = (props) => {
           }),
         }
       );
-      dispatch(fetchExpenseData());
+      dispatch(fetchExpenseData(userId));
       setIsLoading(false);
       Alert.alert("Successfull", "Expense Updated Successfully", [
         {

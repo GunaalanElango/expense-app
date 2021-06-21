@@ -89,12 +89,14 @@ const HomeTabs = () => {
           tabBarIcon: (tab) => {
             return <Entypo name="home" size={30} color={tab.color} />;
           },
+          title: "Home",
         }}
       />
       <Tab.Screen
         name="ExpenseListScreen"
         component={ExpenseScreen}
         options={{
+          title: "All Expenses",
           tabBarIcon: (tab) => {
             return (
               <MaterialIcons
@@ -113,6 +115,7 @@ const HomeTabs = () => {
           tabBarIcon: (tab) => {
             return <FontAwesome5 name="user-alt" size={30} color={tab.color} />;
           },
+          title: "Friends",
         }}
       />
     </Tab.Navigator>
