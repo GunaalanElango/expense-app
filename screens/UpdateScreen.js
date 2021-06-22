@@ -60,7 +60,10 @@ const UpdateExpenseScreen = (props) => {
       }
       setIsLoading(true);
       await fetch(
-        "https://60cb210521337e0017e43e34.mockapi.io/expense/" + expense.id,
+        "https://60cb210521337e0017e43e34.mockapi.io/users/" +
+          userId +
+          "/expense/" +
+          expense.id,
         {
           method: "PUT",
           headers: {

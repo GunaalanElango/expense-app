@@ -36,18 +36,22 @@ const AuthScreen = (props) => {
       }
       setIsLoading(true);
       const response = await fetch(
-        "https://60cb210521337e0017e43e34.mockapi.io/users"
+        "https://60cb210521337e0017e43e34.mockapi.io/users?mobileNumber=" +
+          mobileNumber
       );
       const responseData = await response.json();
       setIsLoading(false);
-      let usersMbNumber = [];
-      for (const user of responseData.users) {
-        usersMbNumber.push(user.mobileNumber);
-      }
-      if (usersMbNumber.includes(mobileNumber)) {
-        console.log("Login Success");
+      if (responseData.users[0]) {
+        dispatch({
+          type: SET_USERID,
+          userId: responseData.users[0].id,
+          isAuthenticated: true,
+        });
       } else {
-        console.log("User not found");
+        Alert.alert(
+          "User not found",
+          "Please use your registered mobile number"
+        );
       }
     } catch (error) {
       console.log(error);
@@ -151,7 +155,6 @@ const AuthScreen = (props) => {
             value={mobileNumber}
             onChangeText={setMobileNumber}
             placeholderTextColor="grey"
-            autoCompleteType="off"
           />
         </View>
         <View style={styles.button}>

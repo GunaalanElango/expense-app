@@ -10,6 +10,7 @@ import Colors from "../constant/color";
 
 const ExpenseDetailScreen = (props) => {
   const expenses = useSelector((state) => state.expense.expenses);
+  const userId = useSelector((state) => state.user.userId);
 
   const expense = expenses.find(
     (expense, index) => props.route.params.index == index
@@ -19,12 +20,15 @@ const ExpenseDetailScreen = (props) => {
 
   const onDeleteHandler = async () => {
     await fetch(
-      "https://60cb210521337e0017e43e34.mockapi.io/expense/" + expense.id,
+      "https://60cb210521337e0017e43e34.mockapi.io/users/" +
+        userId +
+        "/expense/" +
+        expense.id,
       {
         method: "DELETE",
       }
     );
-    dispatch(fetchExpenseData());
+    dispatch(fetchExpenseData(userId));
     props.navigation.navigate("ExpenseListScreen");
   };
 

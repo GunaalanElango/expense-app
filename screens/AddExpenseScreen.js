@@ -51,7 +51,9 @@ const AddExpenseScreen = (props) => {
       }
       setIsLoading(true);
       const response = await fetch(
-        "https://60cb210521337e0017e43e34.mockapi.io/expense",
+        "https://60cb210521337e0017e43e34.mockapi.io/users/" +
+          userId +
+          "/expense",
         {
           method: "POST",
           headers: {

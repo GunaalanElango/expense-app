@@ -2,23 +2,25 @@ import React, { useEffect } from "react";
 import { StyleSheet, View, Button, Text, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-// import { fetchExpenseData } from "../store/actions/expense";
-import { fetchUser } from "../store/actions/user";
+import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
 import Header from "../components/Header";
 import AuthScreen from "../screens/AuthScreen";
+import { SET_USERID } from "../store/actions/user";
 
 const HomeScreen = (props) => {
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, userId } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   try {
-  //     dispatch(fetchUser());
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      if (isAuthenticated) {
+        dispatch(fetchExpenseData(userId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -32,7 +34,13 @@ const HomeScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <Header title="ExpenseApp" />
+      <Header
+        title="ExpenseApp"
+        logout={() =>
+          dispatch({ type: SET_USERID, userId: 0, isAuthenticated: false })
+        }
+        islogout={true}
+      />
       <View style={styles.button}>
         <Button
           title="Add Expense"
