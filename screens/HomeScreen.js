@@ -1,45 +1,35 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Button, Text, Alert } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { StyleSheet, View, Button, Alert } from "react-native";
+import { useDispatch } from "react-redux";
 
-import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
 import Header from "../components/Header";
-import AuthScreen from "../screens/AuthScreen";
+import { fetchExpenseData } from "../store/actions/expense";
 import { SET_USERID } from "../store/actions/user";
 
 const HomeScreen = (props) => {
-  const { isAuthenticated, userId } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     try {
-      if (isAuthenticated) {
-        dispatch(fetchExpenseData(userId));
-      }
+      dispatch(fetchExpenseData());
     } catch (error) {
-      console.log(error);
+      Alert.alert("Error", "error in fetching your data");
     }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    props.navigation.setOptions({
-      tabBarVisible: isAuthenticated ? true : false,
-    });
-  });
-
-  if (!isAuthenticated) {
-    return <AuthScreen />;
-  }
+  }, []);
 
   return (
     <View style={styles.screen}>
       <Header
         title="ExpenseApp"
-        logout={() =>
-          dispatch({ type: SET_USERID, userId: 0, isAuthenticated: false })
-        }
         islogout={true}
+        logout={() => {
+          dispatch({
+            type: SET_USERID,
+            userId: 0,
+            isAuthenticated: false,
+          });
+        }}
       />
       <View style={styles.button}>
         <Button

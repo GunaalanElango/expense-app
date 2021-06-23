@@ -6,7 +6,6 @@ import {
   Text,
   FlatList,
   TouchableNativeFeedback,
-  ActivityIndicator,
   Button,
 } from "react-native";
 
@@ -20,14 +19,6 @@ import Header from "../components/Header";
 const ExpenseScreen = (props) => {
   const expenseData = useSelector((state) => state.expense.expenses);
 
-  // useEffect(() => {
-  //   props.navigation.addListener("focus", loadExpenseData);
-
-  //   return () => {
-  //     props.navigation.removeListener("focus", loadExpenseData);
-  //   };
-  // });
-
   const onClickHandler = (index) => {
     props.navigation.navigate("ExpenseDetailScreen", {
       index: index,
@@ -37,6 +28,7 @@ const ExpenseScreen = (props) => {
   if (expenseData.length == 0) {
     return (
       <View style={styles.screen}>
+        <Header title="Your Expenses" />
         <View style={styles.screenContent}>
           <Text style={{ fontSize: 20, color: Colors.orange }}>
             Your Expenses is Empty!
@@ -53,7 +45,7 @@ const ExpenseScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <Header title="All Expenses" />
+      <Header title="Your Expenses" />
       <View style={styles.screenContent}>
         <FlatList
           style={styles.list}

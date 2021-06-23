@@ -13,13 +13,14 @@ import {
   FontAwesome,
 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-
-import { fetchExpenseData } from "../store/actions/expense";
 import Colors from "../constant/color";
+import { fetchExpenseData } from "../store/actions/expense";
 
 const UpdateExpenseScreen = (props) => {
   const expenses = useSelector((state) => state.expense.expenses);
   const userId = useSelector((state) => state.user.userId);
+
+  const dispatch = useDispatch();
 
   const expense = expenses.find(
     (expense, index) => index == props.route.params.index
@@ -27,7 +28,6 @@ const UpdateExpenseScreen = (props) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useDispatch();
   const [enteredAmount, setEnteredAmount] = useState(
     expense ? expense.amount : ""
   );
@@ -50,7 +50,7 @@ const UpdateExpenseScreen = (props) => {
   const onSubmitHandler = async () => {
     try {
       if (isNaN(enteredAmount) || enteredAmount.trim() == "") {
-        return Alert.alert("Amount Invalid", "Please enter a number");
+        return Alert.alert("Amount Invalid", "Please enter a valid number");
       }
       if (enteredDesc.trim().length == 0) {
         return Alert.alert(
@@ -60,10 +60,7 @@ const UpdateExpenseScreen = (props) => {
       }
       setIsLoading(true);
       await fetch(
-        "https://60cb210521337e0017e43e34.mockapi.io/users/" +
-          userId +
-          "/expense/" +
-          expense.id,
+        `https://60cb210521337e0017e43e34.mockapi.io/users/${userId}/expense/${expense.id}`,
         {
           method: "PUT",
           headers: {
@@ -76,11 +73,11 @@ const UpdateExpenseScreen = (props) => {
           }),
         }
       );
-      dispatch(fetchExpenseData(userId));
+      dispatch(fetchExpenseData());
       setIsLoading(false);
-      Alert.alert("Successfull", "Expense Updated Successfully", [
+      Alert.alert("Successful", "Expense updated successfully", [
         {
-          text: "Okay",
+          text: "Ok",
           onPress: () => {
             props.navigation.navigate("ExpenseDetailScreen", {
               index: props.route.params.index,
@@ -89,7 +86,7 @@ const UpdateExpenseScreen = (props) => {
         },
       ]);
     } catch (error) {
-      console.log(error);
+      Alert.alert("Error", "error in update expense");
     }
   };
 

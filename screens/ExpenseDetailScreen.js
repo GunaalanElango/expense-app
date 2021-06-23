@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
@@ -19,17 +19,18 @@ const ExpenseDetailScreen = (props) => {
   const dispatch = useDispatch();
 
   const onDeleteHandler = async () => {
-    await fetch(
-      "https://60cb210521337e0017e43e34.mockapi.io/users/" +
-        userId +
-        "/expense/" +
-        expense.id,
-      {
-        method: "DELETE",
-      }
-    );
-    dispatch(fetchExpenseData(userId));
-    props.navigation.navigate("ExpenseListScreen");
+    try {
+      await fetch(
+        `https://60cb210521337e0017e43e34.mockapi.io/users/${userId}/expense/${expense.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      dispatch(fetchExpenseData());
+      props.navigation.navigate("ExpenseListScreen");
+    } catch (error) {
+      Alert.alert("Error", "error in fetching the data");
+    }
   };
 
   const onUpdateHandler = async () => {

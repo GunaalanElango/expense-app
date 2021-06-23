@@ -51,9 +51,7 @@ const AddExpenseScreen = (props) => {
       }
       setIsLoading(true);
       const response = await fetch(
-        "https://60cb210521337e0017e43e34.mockapi.io/users/" +
-          userId +
-          "/expense",
+        `https://60cb210521337e0017e43e34.mockapi.io/users/${userId}/expense`,
         {
           method: "POST",
           headers: {
@@ -67,16 +65,21 @@ const AddExpenseScreen = (props) => {
           }),
         }
       );
-      dispatch(fetchExpenseData(userId));
+
+      if (!response.ok) {
+        return Alert.alert("Error", "Error in creating expense");
+      }
+
+      dispatch(fetchExpenseData());
       setIsLoading(false);
-      Alert.alert("Successfull", "Expense Added Successfully", [
+      Alert.alert("Successful", "Expense Added Successfully", [
         {
-          text: "Okay",
+          text: "Ok",
           onPress: () => props.navigation.navigate("ExpenseListScreen"),
         },
       ]);
     } catch (error) {
-      console.log(error);
+      Alert.alert("Error", "error in fetching your data");
     }
   };
 

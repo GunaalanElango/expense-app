@@ -11,71 +11,38 @@ import ExpenseScreen from "../screens/ExpenseScreen";
 import ExpenseDetailScreen from "../screens/ExpenseDetailScreen";
 import UpdateExpenseScreen from "../screens/UpdateScreen";
 import FriendScreen from "../screens/FriendScreen";
-
-// const ExpenseStackNavigator = createStackNavigator();
-// const ExpenseListStackNavigator = createStackNavigator();
-
-// const ExpenseStackNav = () => {
-//   return (
-//     <ExpenseStackNavigator.Navigator
-//       mode="card"
-//       screenOptions={defaultStackScreenOptions}
-//       initialRouteName="HomeScreen"
-//       detachInactiveScreens={true}
-//     >
-//       <ExpenseStackNavigator.Screen
-//         name="HomeScreen"
-//         component={HomeScreen}
-//         options={{
-//           title: "ExpenseApp",
-//         }}
-//       />
-//       <ExpenseStackNavigator.Screen
-//         name="AddExpenseScreen"
-//         component={AddExpenseScreen}
-//         options={{
-//           title: "Add Expense",
-//         }}
-//       />
-//     </ExpenseStackNavigator.Navigator>
-//   );
-// };
-
-// const ExpenseListStackNav = () => {
-//   return (
-//     <ExpenseListStackNavigator.Navigator
-//       screenOptions={defaultStackScreenOptions}
-//       initialRouteName="ExpenseListScreen"
-//     >
-//       <ExpenseListStackNavigator.Screen
-//         name="ExpenseListScreen"
-//         component={ExpenseScreen}
-//         options={{
-//           title: "All Expenses",
-//         }}
-//       />
-//       <ExpenseListStackNavigator.Screen
-//         name="ExpenseDetailScreen"
-//         component={ExpenseDetailScreen}
-//         options={{
-//           title: "Detail",
-//         }}
-//       />
-//       <ExpenseListStackNavigator.Screen
-//         name="UpdateExpenseScreen"
-//         component={UpdateExpenseScreen}
-//         options={{
-//           title: "Update Expense",
-//         }}
-//       />
-//     </ExpenseListStackNavigator.Navigator>
-//   );
-// };
+import RegisterScreen from "../screens/RegisterScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const HomeTabs = () => {
+export const AuthNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.black,
+        },
+        headerTitleAlign: "left",
+        headerTintColor: Colors.white,
+      }}
+    >
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{ title: "Register" }}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ title: "Login" }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ExpenseTabNavigator = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -122,7 +89,7 @@ const HomeTabs = () => {
   );
 };
 
-const MainStack = () => {
+const ExpenseStackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -135,7 +102,7 @@ const MainStack = () => {
     >
       <Stack.Screen
         name="Home"
-        component={HomeTabs}
+        component={ExpenseTabNavigator}
         options={{
           headerShown: false,
         }}
@@ -159,4 +126,4 @@ const MainStack = () => {
   );
 };
 
-export default MainStack;
+export default ExpenseStackNavigator;

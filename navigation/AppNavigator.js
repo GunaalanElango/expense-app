@@ -1,12 +1,15 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
-import ExpenseNavigator from "./ExpenseNavigator";
+import ExpenseNavigator, { AuthNavigator } from "./ExpenseNavigator";
 
 const AppNavigator = (props) => {
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
   return (
     <NavigationContainer>
-      <ExpenseNavigator />
+      {isAuthenticated ? <ExpenseNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };
