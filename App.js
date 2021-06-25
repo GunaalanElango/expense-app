@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar, View, ActivityIndicator } from "react-native";
+import { StatusBar } from "react-native";
 import { enableScreens } from "react-native-screens";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
