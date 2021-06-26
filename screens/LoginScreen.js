@@ -5,67 +5,28 @@ import {
   Text,
   TextInput,
   Button,
-  Alert,
-  ActivityIndicator,
   TouchableOpacity,
+  Alert,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../constant/color";
-import { SET_USERID } from "../store/actions/user";
+import { setLoginUser } from "../store/actions/auth";
 
 const LoginScreen = (props) => {
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const users = useSelector((state) => state.users.users);
 
   const dispatch = useDispatch();
 
-  const mobileRegex = new RegExp(/\d\d\d\d\d\d\d\d\d\d/);
-
-  const onLoginHandler = async () => {
-    try {
-      if (mobileNumber.length != 10 || !mobileRegex.test(mobileNumber)) {
-        return Alert.alert(
-          "Mobile number is invalid",
-          "Should contain only numbers"
-        );
-      }
-
-      setIsLoading(true);
-      const response = await fetch(
-        `https://60cb210521337e0017e43e34.mockapi.io/users?mobileNumber=${mobileNumber}`
-      );
-      const responseData = await response.json();
-      setIsLoading(false);
-
-      if (responseData.users[0]) {
-        dispatch({
-          type: SET_USERID,
-          userId: responseData.users[0].id,
-          isAuthenticated: true,
-        });
-      } else {
-        return Alert.alert(
-          "User not found",
-          "Please use your registered mobile number"
-        );
-      }
-    } catch (error) {
-      Alert.alert("Error", "error in login");
+  const onLoginHandler = () => {
+    const findUser = users.find((user) => user.email == email);
+    if (!findUser) {
+      return Alert.alert("User not found!!", "try again with registered email");
     }
+    dispatch(setLoginUser(findUser));
   };
-
-  if (isLoading) {
-    return (
-      <View style={styles.screen}>
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <ActivityIndicator size="large" color={Colors.black} />
-        </View>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.screen}>
@@ -73,9 +34,9 @@ const LoginScreen = (props) => {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Mobile number"
-            value={mobileNumber}
-            onChangeText={setMobileNumber}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
             placeholderTextColor="grey"
           />
         </View>

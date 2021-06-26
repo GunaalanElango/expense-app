@@ -1,12 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  ActivityIndicator,
-  Alert,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import {
   MaterialIcons,
   SimpleLineIcons,
@@ -14,15 +7,14 @@ import {
 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchExpenseData } from "../store/actions/expense";
+// import { fetchExpenseData } from "../store/actions/expenses";
 import Colors from "../constant/color";
 
 const AddExpenseScreen = (props) => {
-  const userId = useSelector((state) => state.user.userId);
-  const [enteredAmount, setEnteredAmount] = useState("");
-  const [enteredDesc, setEnteredDesc] = useState("");
-
-  const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+  const [friends, setFriends] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -38,67 +30,22 @@ const AddExpenseScreen = (props) => {
     });
   });
 
-  const onSubmitHandler = async () => {
-    try {
-      if (isNaN(enteredAmount) || enteredAmount.trim() == "") {
-        return Alert.alert("Amount Invalid", "Please enter a number");
-      }
-      if (enteredDesc.trim().length == 0) {
-        return Alert.alert(
-          "Description Invalid",
-          "Description should not be empty and not more than 20 charactors long"
-        );
-      }
-      setIsLoading(true);
-      const response = await fetch(
-        `https://60cb210521337e0017e43e34.mockapi.io/users/${userId}/expense`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            amount: enteredAmount,
-            description: enteredDesc,
-            createdAt: Date.now(),
-            updatedAt: Date.now(),
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        return Alert.alert("Error", "Error in creating expense");
-      }
-
-      dispatch(fetchExpenseData());
-      setIsLoading(false);
-      Alert.alert("Successful", "Expense Added Successfully", [
-        {
-          text: "Ok",
-          onPress: () => props.navigation.navigate("ExpenseListScreen"),
-        },
-      ]);
-    } catch (error) {
-      Alert.alert("Error", "error in fetching your data");
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <ActivityIndicator
-        style={{
-          flex: 1,
-          justifyContent: "center",
-        }}
-        size="large"
-        color={Colors.darkViolet}
-      />
-    );
-  }
+  const onSubmitHandler = () => {};
 
   return (
     <View style={styles.screen}>
       <View style={styles.addExpenseForm}>
+        <View style={styles.friendsForm}>
+          <View style={styles.friendInputContainer}>
+            <TextInput
+              placeholder="Enter names"
+              value=""
+              onChangeText={setFriends}
+              multiline={true}
+              selectionColor={Colors.black}
+            />
+          </View>
+        </View>
         <View style={styles.inputContainer}>
           <View style={styles.inputHead}>
             <SimpleLineIcons name="info" size={24} color="black" />
@@ -106,8 +53,8 @@ const AddExpenseScreen = (props) => {
           <TextInput
             style={styles.input}
             placeholder="Description"
-            value={enteredDesc}
-            onChangeText={setEnteredDesc}
+            value={description}
+            onChangeText={setDescription}
             multiline={true}
             selectionColor={Colors.black}
           />
@@ -121,8 +68,8 @@ const AddExpenseScreen = (props) => {
             style={{ ...styles.input, fontSize: 20 }}
             placeholder="0.00"
             keyboardType="numeric"
-            value={enteredAmount}
-            onChangeText={setEnteredAmount}
+            value={amount}
+            onChangeText={setAmount}
             placeholderTextColor="grey"
           />
         </View>
@@ -136,6 +83,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: Colors.white,
+  },
+  friendInputContainer: {
+    paddingHorizontal: 5,
+    paddingVertical: 10,
   },
   addExpenseForm: {
     width: "90%",

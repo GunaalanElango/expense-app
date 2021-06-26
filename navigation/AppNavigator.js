@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import ExpenseNavigator, { AuthNavigator } from "./ExpenseNavigator";
 
 const AppNavigator = (props) => {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
     <NavigationContainer>

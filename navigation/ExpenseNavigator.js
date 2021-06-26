@@ -13,21 +13,47 @@ import UpdateExpenseScreen from "../screens/UpdateScreen";
 import FriendScreen from "../screens/FriendScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import LoginScreen from "../screens/LoginScreen";
+import AddGroupScreen from "../screens/AddGroupScreen";
+import GroupDetailScreen from "../screens/GroupDetailScreen";
+
+const defaultStackScreenOptions = {
+  headerStyle: {
+    backgroundColor: Colors.black,
+  },
+  headerTitleAlign: "left",
+  headerTintColor: Colors.white,
+};
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+const HomeStackScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={defaultStackScreenOptions}>
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ title: "Home" }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ExpensesStackScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={defaultStackScreenOptions}>
+      <Stack.Screen
+        name="ExpenseScreen"
+        component={ExpenseScreen}
+        options={{ title: "Your Expenses" }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 export const AuthNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors.black,
-        },
-        headerTitleAlign: "left",
-        headerTintColor: Colors.white,
-      }}
-    >
+    <Stack.Navigator screenOptions={defaultStackScreenOptions}>
       <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
@@ -51,7 +77,7 @@ const ExpenseTabNavigator = () => {
     >
       <Tab.Screen
         name="HomeScreen"
-        component={HomeScreen}
+        component={HomeStackScreen}
         options={{
           tabBarIcon: (tab) => {
             return <Entypo name="home" size={30} color={tab.color} />;
@@ -61,7 +87,7 @@ const ExpenseTabNavigator = () => {
       />
       <Tab.Screen
         name="ExpenseListScreen"
-        component={ExpenseScreen}
+        component={ExpensesStackScreen}
         options={{
           title: "All Expenses",
           tabBarIcon: (tab) => {
@@ -75,31 +101,13 @@ const ExpenseTabNavigator = () => {
           },
         }}
       />
-      <Tab.Screen
-        name="FriendScreen"
-        component={FriendScreen}
-        options={{
-          tabBarIcon: (tab) => {
-            return <FontAwesome5 name="user-alt" size={30} color={tab.color} />;
-          },
-          title: "Friends",
-        }}
-      />
     </Tab.Navigator>
   );
 };
 
 const ExpenseStackNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors.black,
-        },
-        headerTitleAlign: "left",
-        headerTintColor: Colors.white,
-      }}
-    >
+    <Stack.Navigator screenOptions={defaultStackScreenOptions}>
       <Stack.Screen
         name="Home"
         component={ExpenseTabNavigator}
@@ -121,6 +129,16 @@ const ExpenseStackNavigator = () => {
         name="UpdateExpenseScreen"
         component={UpdateExpenseScreen}
         options={{ title: "Update Expense" }}
+      />
+      <Stack.Screen
+        name="AddGroupScreen"
+        component={AddGroupScreen}
+        options={{ title: "Add group" }}
+      />
+      <Stack.Screen
+        name="GroupDetailScreen"
+        component={GroupDetailScreen}
+        options={{ title: "Group Detail" }}
       />
     </Stack.Navigator>
   );

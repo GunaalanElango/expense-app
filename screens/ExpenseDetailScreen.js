@@ -4,7 +4,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
-import { fetchExpenseData } from "../store/actions/expense";
+import { fetchExpenseData } from "../store/actions/expenses";
 import getDateByEpoch from "../util/getDateByTimestamp";
 import Colors from "../constant/color";
 

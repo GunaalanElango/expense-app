@@ -1,17 +1,20 @@
-import { SET_USERID } from "../actions/user";
+import { SET_LOGGED_IN_USER } from "../actions/auth";
 
 const initalState = {
-  userId: 0,
-  isAuthenticated: false,
+  user: {
+    email: "elangogunaalan@gmail.com",
+    name: "Gunaalan",
+  },
+  isAuthenticated: true,
 };
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
-    case SET_USERID:
+    case SET_LOGGED_IN_USER:
       return {
         ...state,
-        userId: action.userId,
-        isAuthenticated: action.isAuthenticated,
+        user: action.user,
+        isAuthenticated: true,
       };
     default:
       return state;

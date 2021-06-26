@@ -28,7 +28,6 @@ const ExpenseScreen = (props) => {
   if (expenseData.length == 0) {
     return (
       <View style={styles.screen}>
-        <Header title="Your Expenses" />
         <View style={styles.screenContent}>
           <Text style={{ fontSize: 20, color: Colors.orange }}>
             Your Expenses is Empty!

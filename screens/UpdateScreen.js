@@ -14,7 +14,7 @@ import {
 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import Colors from "../constant/color";
-import { fetchExpenseData } from "../store/actions/expense";
+import { fetchExpenseData } from "../store/actions/expenses";
 
 const UpdateExpenseScreen = (props) => {
   const expenses = useSelector((state) => state.expense.expenses);

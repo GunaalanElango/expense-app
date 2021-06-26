@@ -9,12 +9,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import OnboardingScreen from "./screens/OnboardingScreen";
 import AppNavigator from "./navigation/AppNavigator";
 import Colors from "./constant/color";
-import expenseReducer from "./store/reducers/expense";
-import userReducer from "./store/reducers/user";
+import expenseReducer from "./store/reducers/expenses";
+import authReducer from "./store/reducers/auth";
+import userReducer from "./store/reducers/users";
+import groupReducer from "./store/reducers/groups";
 
 const rootReducer = combineReducers({
+  users: userReducer,
   expense: expenseReducer,
-  user: userReducer,
+  auth: authReducer,
+  groups: groupReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

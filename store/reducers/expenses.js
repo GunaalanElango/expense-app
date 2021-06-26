@@ -1,4 +1,4 @@
-import { SET_EXPENSE_LIST } from "../actions/expense";
+import { SET_EXPENSE_LIST } from "../actions/expenses";
 
 const initalState = {
   expenses: [],
