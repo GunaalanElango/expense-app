@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { userRegistration } from "../store/actions/users";
+import { userRegistration } from "../../store/actions/users";
 
-import Colors from "../constant/color";
+import Colors from "../../constant/color";
 
 const RegisterScreen = (props) => {
   const [name, setName] = useState("");

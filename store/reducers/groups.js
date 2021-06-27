@@ -1,4 +1,8 @@
-import { ADD_GROUP_MEMBERS, CREATE_GROUP } from "../actions/groups";
+import {
+  ADD_GROUP_MEMBERS,
+  CREATE_GROUP,
+  DELETE_GROUP_MEMBERS,
+} from "../actions/groups";
 
 const initialState = {
   groups: [],
@@ -30,6 +34,14 @@ const reducer = (state = initialState, action) => {
           ...state,
           groupMembers: [...state.groupMembers, action.member],
         };
+
+    case DELETE_GROUP_MEMBERS:
+      const updatedMembers = [...state.groupMembers];
+      updatedMembers.splice(action.index, 1);
+      return {
+        ...state,
+        groupMembers: updatedMembers,
+      };
 
     default:
       return state;

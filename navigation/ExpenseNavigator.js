@@ -1,8 +1,7 @@
 import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../constant/color";
 import HomeScreen from "../screens/HomeScreen";
@@ -10,11 +9,14 @@ import AddExpenseScreen from "../screens/AddExpenseScreen";
 import ExpenseScreen from "../screens/ExpenseScreen";
 import ExpenseDetailScreen from "../screens/ExpenseDetailScreen";
 import UpdateExpenseScreen from "../screens/UpdateScreen";
-import FriendScreen from "../screens/FriendScreen";
-import RegisterScreen from "../screens/RegisterScreen";
-import LoginScreen from "../screens/LoginScreen";
-import AddGroupScreen from "../screens/AddGroupScreen";
-import GroupDetailScreen from "../screens/GroupDetailScreen";
+
+import RegisterScreen from "../screens/auth/RegisterScreen";
+import LoginScreen from "../screens/auth/LoginScreen";
+
+import AddGroupScreen from "../screens/groups/AddGroupScreen";
+import AddGroupMemberScreen from "../screens/groups/AddGroupMemberScreen";
+import GroupDetailScreen from "../screens/groups/GroupDetailScreen";
+import GroupSettingScreen from "../screens/groups/GroupSettingScreen";
 
 const defaultStackScreenOptions = {
   headerStyle: {
@@ -139,6 +141,16 @@ const ExpenseStackNavigator = () => {
         name="GroupDetailScreen"
         component={GroupDetailScreen}
         options={{ title: "Group Detail" }}
+      />
+      <Stack.Screen
+        name="GroupSettingScreen"
+        component={GroupSettingScreen}
+        options={{ title: "Group Settings" }}
+      />
+      <Stack.Screen
+        name="AddGroupMemberScreen"
+        component={AddGroupMemberScreen}
+        options={{ title: "Add member" }}
       />
     </Stack.Navigator>
   );

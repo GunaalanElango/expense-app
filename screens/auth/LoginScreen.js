@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import Colors from "../constant/color";
-import { setLoginUser } from "../store/actions/auth";
+import Colors from "../../constant/color";
+import { setLoginUser } from "../../store/actions/auth";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");

@@ -6,7 +6,7 @@ import {
   Text,
   FlatList,
 } from "react-native";
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
 import Colors from "../constant/color";
@@ -51,8 +51,8 @@ const HomeScreen = (props) => {
                   />
                 </View>
                 <View style={styles.groupInfo}>
-                  <Text style={styles.groupText}>{item.groupName}</Text>
-                  <Text style={styles.groupText}>({item.category})</Text>
+                  <Text style={styles.groupText}>{item.name}</Text>
+                  <Text style={styles.groupText}>({item.type})</Text>
                 </View>
               </TouchableOpacity>
             );
